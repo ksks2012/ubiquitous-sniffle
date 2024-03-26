@@ -1,0 +1,5 @@
+Server:
+  RunMode: debug
+  HttpPort: 18080
+  ReadTimeout: 60
+  WriteTimeout: 60

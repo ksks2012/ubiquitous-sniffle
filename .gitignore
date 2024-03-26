@@ -2,3 +2,5 @@
 
 **/*.html
 **/*.out
+
+go.work
