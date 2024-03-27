@@ -12,9 +12,11 @@ import (
 
 	"github.com/ksks2012/ubiquitous-sniffle/global"
 	"github.com/ksks2012/ubiquitous-sniffle/internal/routers"
+	"github.com/ksks2012/ubiquitous-sniffle/pkg/logger"
 	"github.com/ksks2012/ubiquitous-sniffle/pkg/setting"
 
 	"github.com/gin-gonic/gin"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 var (
@@ -31,6 +33,10 @@ func init() {
 	err = setupSetting()
 	if err != nil {
 		log.Fatalf("init.setupSetting err: %v", err)
+	}
+	err = setupLogger()
+	if err != nil {
+		log.Fatalf("init.setupLogger err: %v", err)
 	}
 }
 
@@ -76,6 +82,10 @@ func setupSetting() error {
 	if err != nil {
 		return err
 	}
+	err = s.ReadSection("App", &global.AppSetting)
+	if err != nil {
+		return err
+	}
 
 	if port != "" {
 		global.ServerSetting.HttpPort = port
@@ -86,6 +96,18 @@ func setupSetting() error {
 
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
+
+	return nil
+}
+
+func setupLogger() error {
+	fileName := global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt
+	global.Logger = logger.NewLogger(&lumberjack.Logger{
+		Filename:  fileName,
+		MaxSize:   500,
+		MaxAge:    10,
+		LocalTime: true,
+	}, "", log.LstdFlags).WithCaller(2)
 
 	return nil
 }

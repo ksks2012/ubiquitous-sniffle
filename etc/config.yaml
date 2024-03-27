@@ -3,3 +3,7 @@ Server:
   HttpPort: 18080
   ReadTimeout: 60
   WriteTimeout: 60
+App:
+  LogSavePath: storage/logs
+  LogFileName: app
+  LogFileExt: .log

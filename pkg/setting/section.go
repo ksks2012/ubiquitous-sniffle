@@ -11,6 +11,12 @@ type ServerSettingS struct {
 	WriteTimeout time.Duration
 }
 
+type AppSettingS struct {
+	LogSavePath string
+	LogFileName string
+	LogFileExt  string
+}
+
 var sections = make(map[string]interface{})
 
 func (s *Setting) ReadSection(k string, v interface{}) error {
