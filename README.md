@@ -18,7 +18,20 @@ go run cmd/main.go
     ```
     go test ./pkg/hash/
     ```
-    
+
+- test post method
+
+    ```
+    wget --post-data 'url=www.google.com&method=md5' localhost:18080/api/v1/shorten -O ./log/md5.json
+    ```
+
+    ```
+    wget --post-data 'url=www.google.com&method=sha1' localhost:18080/api/v1/shorten -O ./log/sha1.json
+    ```
+
+    ```
+    wget --post-data 'url=www.google.com&method=crc32' localhost:18080/api/v1/shorten -O ./log/crc32.json
+    ```
 
 # Planning
 
