@@ -5,6 +5,7 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"hash/crc32"
+	"fmt"
 )
 
 func HashMD5(str string) string {
@@ -19,6 +20,6 @@ func HashSHA1(str string) string {
 	return hex.EncodeToString(c.Sum(nil))
 }
 
-func HashCRC32(str string) uint32 {
-	return crc32.ChecksumIEEE([]byte(str))
+func HashCRC32(str string) string {
+	return fmt.Sprintf("%d", crc32.ChecksumIEEE([]byte(str)))
 }
