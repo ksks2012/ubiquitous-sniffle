@@ -14,7 +14,8 @@ func NewRouter() *gin.Engine {
 	apiv1 := r.Group("/api/v1")
 	// long url -> short url
 	apiv1.POST("/shorten", shorten.Create)
-	apiv1.GET("/shortUrl", shortUrl.Get)
+	// short url -> original url
+	apiv1.GET("/shortUrl/:url", shortUrl.Get)
 
 	return r
 }

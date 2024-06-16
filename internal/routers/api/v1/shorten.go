@@ -1,9 +1,11 @@
 package v1
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/ksks2012/ubiquitous-sniffle/pkg/hash"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/ksks2012/ubiquitous-sniffle/internal/model"
+	"github.com/ksks2012/ubiquitous-sniffle/pkg/hash"
 )
 
 type Shorten struct{}
@@ -18,7 +20,7 @@ func NewShorten() Shorten {
 // If the method is invalid, it returns without further processing.
 func (a Shorten) Create(c *gin.Context) {
 	url := c.DefaultPostForm("url", "missing url in input")
-	method := c.DefaultPostForm("method", "missing method in input") 
+	method := c.DefaultPostForm("method", "missing method in input")
 
 	var hashMethod func(string) string
 	if method == "md5" {
@@ -34,6 +36,13 @@ func (a Shorten) Create(c *gin.Context) {
 
 	hashedURL := hashMethod(url)
 	// continue with the rest of the code
+
+	// Save the URL and shortened URL in the database
+	err := model.SaveURL(url, hashedURL)
+	if err != nil {
+		// handle error here
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"hashedURL": hashedURL})
 }
