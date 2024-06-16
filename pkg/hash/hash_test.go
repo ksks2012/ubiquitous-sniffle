@@ -28,11 +28,11 @@ func TestHashSHA1(t *testing.T) {
 
 func TestHashCRC32(t *testing.T) {
 	str := "Hello, World!"
-	expected := uint32(3964322768)
+	expected := "3964322768"
 
 	result := HashCRC32(str)
 
 	if result != expected {
-		t.Errorf("CRC32(%s) = %d, expected %d", str, result, expected)
+		t.Errorf("CRC32(%s) = %s, expected %s", str, result, expected)
 	}
 }

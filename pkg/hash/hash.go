@@ -4,8 +4,8 @@ import (
 	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
-	"hash/crc32"
 	"fmt"
+	"hash/crc32"
 )
 
 func HashMD5(str string) string {
