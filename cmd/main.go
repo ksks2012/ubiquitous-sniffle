@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/ksks2012/ubiquitous-sniffle/global"
+	"github.com/ksks2012/ubiquitous-sniffle/internal/model"
 	"github.com/ksks2012/ubiquitous-sniffle/internal/routers"
 	"github.com/ksks2012/ubiquitous-sniffle/pkg/logger"
 	"github.com/ksks2012/ubiquitous-sniffle/pkg/setting"
@@ -37,6 +38,10 @@ func init() {
 	err = setupLogger()
 	if err != nil {
 		log.Fatalf("init.setupLogger err: %v", err)
+	}
+	err = setupDBEngine()
+	if err != nil {
+		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
 }
 
@@ -87,6 +92,11 @@ func setupSetting() error {
 		return err
 	}
 
+	err = s.ReadSection("DataBase", &global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
+
 	if port != "" {
 		global.ServerSetting.HttpPort = port
 	}
@@ -108,6 +118,16 @@ func setupLogger() error {
 		MaxAge:    10,
 		LocalTime: true,
 	}, "", log.LstdFlags).WithCaller(2)
+
+	return nil
+}
+
+func setupDBEngine() error {
+	var err error
+	global.DBEngine, err = model.NewDBEngine(global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

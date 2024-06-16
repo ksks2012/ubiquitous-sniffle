@@ -7,3 +7,6 @@ App:
   LogSavePath: storage/logs
   LogFileName: app
   LogFileExt: .log
+Database:
+  DBType: sqlite3
+  Path: ./var/database.db

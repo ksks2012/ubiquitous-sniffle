@@ -17,6 +17,11 @@ type AppSettingS struct {
 	LogFileExt  string
 }
 
+type DatabaseSettingS struct {
+	DBType string
+	Path   string
+}
+
 var sections = make(map[string]interface{})
 
 func (s *Setting) ReadSection(k string, v interface{}) error {

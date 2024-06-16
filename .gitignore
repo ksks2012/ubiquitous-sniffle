@@ -3,5 +3,6 @@
 **/*.html
 **/*.out
 log/**
+var/**
 
 go.work
