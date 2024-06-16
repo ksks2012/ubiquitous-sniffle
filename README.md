@@ -54,7 +54,7 @@ go run cmd/main.go
 
 - [X]  API for create short URL
 - [X]  API for redirected to long URL
-- [X]  Cache
+- [ ]  Cache
 - [ ]  Salt
 
 ## DB table
