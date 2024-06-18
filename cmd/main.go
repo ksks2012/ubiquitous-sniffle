@@ -71,7 +71,8 @@ func main() {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	log.Println("Shuting down server...")
-
+	global.DBEngine.Close()
+	global.CacheEngine.Close()
 	log.Println("Server exiting")
 }
 
