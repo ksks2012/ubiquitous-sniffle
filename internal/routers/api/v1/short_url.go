@@ -16,10 +16,14 @@ func NewShortUrl() ShortURL {
 func (a ShortURL) Get(c *gin.Context) {
 	shortURL := c.Param("url")
 
-	url, err := model.GetURL(shortURL)
+	url, err := model.GetKey(shortURL)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "URL not found"})
-		return
+		url, err = model.GetURL(shortURL)
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "URL not found"})
+			return
+		}
 	}
+
 	c.JSON(http.StatusOK, gin.H{"url": url})
 }

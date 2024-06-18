@@ -37,8 +37,15 @@ func (a Shorten) Create(c *gin.Context) {
 	hashedURL := hashMethod(url)
 	// continue with the rest of the code
 
+	// Save URL in redis cache
+	err := model.SetKey(hashedURL, url)
+	if err != nil {
+		// handle error here
+		return
+	}
+
 	// Save the URL and shortened URL in the database
-	err := model.SaveURL(url, hashedURL)
+	err = model.SaveURL(url, hashedURL)
 	if err != nil {
 		// handle error here
 		return

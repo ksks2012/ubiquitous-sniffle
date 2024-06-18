@@ -27,3 +27,19 @@ func NewCacheEngine(cacheSetting *setting.CacheSettingS) (*redis.Client, error) 
 	global.Logger.Info(context.TODO(), pong)
 	return client, nil
 }
+
+func GetKey(key string) (string, error) {
+	val, err := global.CacheEngine.Get(key).Result()
+	if err != nil {
+		return "", err
+	}
+	return val, nil
+}
+
+func SetKey(key string, value string) error {
+	err := global.CacheEngine.Set(key, value, 0).Err()
+	if err != nil {
+		return err
+	}
+	return nil
+}
