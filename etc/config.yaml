@@ -10,3 +10,9 @@ App:
 Database:
   DBType: sqlite3
   Path: ./var/database.db
+Cache:
+  Type: redis
+  Host: localhost
+  Port: "6379"
+  Password: ""
+  Number: 0

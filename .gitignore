@@ -4,5 +4,6 @@
 **/*.out
 log/**
 var/**
+**/*.log
 
 go.work

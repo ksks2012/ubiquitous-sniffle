@@ -43,6 +43,10 @@ func init() {
 	if err != nil {
 		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
+	err = setupCacheEngine()
+	if err != nil {
+		log.Fatalf("init.setupCacheEngine err: %v", err)
+	}
 }
 
 func main() {
@@ -97,6 +101,11 @@ func setupSetting() error {
 		return err
 	}
 
+	err = s.ReadSection("Cache", &global.CacheSetting)
+	if err != nil {
+		return err
+	}
+
 	if port != "" {
 		global.ServerSetting.HttpPort = port
 	}
@@ -125,6 +134,16 @@ func setupLogger() error {
 func setupDBEngine() error {
 	var err error
 	global.DBEngine, err = model.NewDBEngine(global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func setupCacheEngine() error {
+	var err error
+	global.CacheEngine, err = model.NewCacheEngine(global.CacheSetting)
 	if err != nil {
 		return err
 	}

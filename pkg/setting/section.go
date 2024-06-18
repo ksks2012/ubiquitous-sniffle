@@ -22,6 +22,14 @@ type DatabaseSettingS struct {
 	Path   string
 }
 
+type CacheSettingS struct {
+	Type     string
+	Host     string
+	Port     string
+	Password string
+	Number   int
+}
+
 var sections = make(map[string]interface{})
 
 func (s *Setting) ReadSection(k string, v interface{}) error {
