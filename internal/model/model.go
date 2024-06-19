@@ -11,9 +11,8 @@ import (
 
 const create string = `
   CREATE TABLE IF NOT EXISTS mapping (
-  id INTEGER NOT NULL PRIMARY KEY,
   url TEXT NULL,
-  short_url TEXT NULL
+  short_url TEXT NULL PRIMARY KEY
   );`
 
 func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*sql.DB, error) {
@@ -33,7 +32,7 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*sql.DB, error) {
 
 func SaveURL(url string, shortURL string) error {
 	// Save the URL and shortened URL in the database
-	_, err := global.DBEngine.Exec("INSERT INTO mapping (url, short_url) VALUES (?, ?)", url, shortURL)
+	_, err := global.DBEngine.Exec("REPLACE INTO mapping (url, short_url) VALUES (?, ?)", url, shortURL)
 	return err
 }
 
