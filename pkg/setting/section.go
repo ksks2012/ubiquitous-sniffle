@@ -15,6 +15,7 @@ type AppSettingS struct {
 	LogSavePath string
 	LogFileName string
 	LogFileExt  string
+	Salt        string
 }
 
 type DatabaseSettingS struct {

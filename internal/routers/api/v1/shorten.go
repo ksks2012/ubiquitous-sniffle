@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ksks2012/ubiquitous-sniffle/global"
 	"github.com/ksks2012/ubiquitous-sniffle/internal/model"
 	"github.com/ksks2012/ubiquitous-sniffle/pkg/hash"
 )
@@ -22,6 +23,9 @@ func (a Shorten) Create(c *gin.Context) {
 	url := c.DefaultPostForm("url", "missing url in input")
 	method := c.DefaultPostForm("method", "missing method in input")
 
+	// Salt the URL
+	saltedURL := url + global.AppSetting.Salt
+
 	var hashMethod func(string) string
 	if method == "md5" {
 		hashMethod = hash.HashMD5
@@ -34,7 +38,7 @@ func (a Shorten) Create(c *gin.Context) {
 		return
 	}
 
-	hashedURL := hashMethod(url)
+	hashedURL := hashMethod(saltedURL)
 	// continue with the rest of the code
 
 	// Save URL in redis cache
