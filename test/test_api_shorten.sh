@@ -12,7 +12,7 @@ do
     wget --post-data "url=$URL&method=$method" "$HOST/$API/shorten" -O "$log_dir/$method.json"
 done
 
-short_urls=("0a137b375cc3881a70e186ce2172c8d1" "d8b99f68b208b5453b391cb0c6c3d6a9824f3c3a" "526628817")
+short_urls=("480a829c2f42c8c53626d162cf3c934b" "8e0d2e72cd72bc5dd83b5928aeb44bcc9c73e953" "1277064271")
 long_names=("md5_long" "sha1_long" "crc32_long")
 
 for i in "${!short_urls[@]}"
